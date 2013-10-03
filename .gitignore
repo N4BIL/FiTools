@@ -4,3 +4,4 @@
 *.jar
 *.war
 *.ear
+/FiTools/nbproject/private/
