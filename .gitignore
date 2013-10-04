@@ -5,3 +5,4 @@
 *.war
 *.ear
 /FiTools/nbproject/private/
+/FiTools/build/
