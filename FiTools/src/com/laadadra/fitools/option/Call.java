@@ -33,7 +33,9 @@ public class Call extends Option
   @Override
   public double theta()
   {
-    return (-Math.exp(-dividendRate * timeToMaturity * (spot * Gaussian.phi(d1) * volatility) / (2 * Math.sqrt(timeToMaturity))) - riskFreeRate * strike * Math.exp(-riskFreeRate * timeToMaturity) * Gaussian.Phi(d2) + dividendRate * spot * Math.exp(-dividendRate * timeToMaturity) * Gaussian.Phi(d1)) / 100.;
+    return (-Math.exp(-dividendRate * timeToMaturity) * spot * Gaussian.phi(d1) * volatility / (2 * Math.sqrt(timeToMaturity))
+            - riskFreeRate * strike * Math.exp(-riskFreeRate * timeToMaturity) * Gaussian.Phi(d2)
+            + dividendRate * spot * Math.exp(-dividendRate * timeToMaturity) * Gaussian.Phi(d1)) / 100.;
   }
 
   

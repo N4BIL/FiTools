@@ -90,14 +90,14 @@ public class OptionTest
   public void putRho()
   {
     Option o = new Put(375, 375, 60. / 365., 0.005, 0.03, 0.2);
-    assertEquals(-0.336, o.rho(), 0.01);
+    assertEquals(-0.315, o.rho(), 0.01);
   }
 
   @Test
   public void callRho()
   {
     Option o = new Call(375, 375, 60. / 365., 0.005, 0.03, 0.2);
-    assertEquals(0.29, o.rho(), 0.01);
+    assertEquals(0.30, o.rho(), 0.01);
   }
 
   @Test
