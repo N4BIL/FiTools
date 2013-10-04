@@ -20,9 +20,7 @@ public class Gaussian
       
       double accu = 0.;
       for (double z = -8, delta = 0.001; z < x; z += delta)
-      {
         accu += phi(z) * delta;
-      }
       return accu;
     }
 
