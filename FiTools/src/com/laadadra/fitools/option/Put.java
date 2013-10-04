@@ -23,6 +23,12 @@ public class Put extends Option
   {
     return -Math.exp(-riskFreeRate * timeToMaturity) * Gaussian.Phi(-d1);
   }
+
+  @Override
+  public double rho()
+  {
+    return -strike * timeToMaturity * Math.exp(-timeToMaturity * riskFreeRate) * Gaussian.Phi(-d2) / 100.;
+  }
   
   
 }

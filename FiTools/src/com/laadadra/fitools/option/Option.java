@@ -34,6 +34,12 @@ public abstract class Option
 
   public abstract double price();
   public abstract double delta();
+  public abstract double rho();
+  
+  public double vega()
+  {
+    return strike * Math.exp(-dividendRate * timeToMaturity) * Gaussian.phi(d1) * Math.sqrt(timeToMaturity) / 100.;
+  }
   
   private boolean checkIntegrity()
   {

@@ -24,5 +24,11 @@ public class Call extends Option
     return Gaussian.Phi(d1) * Math.exp(-dividendRate * timeToMaturity);
   }
 
+  @Override
+  public double rho()
+  {
+    return strike * timeToMaturity * Math.exp(-timeToMaturity * riskFreeRate) * Gaussian.Phi(d2) / 100.;
+  }
+
   
 }
