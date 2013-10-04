@@ -35,6 +35,7 @@ public abstract class Option
   public abstract double price();
   public abstract double delta();
   public abstract double rho();
+  public abstract double theta();
   
   public double vega()
   {

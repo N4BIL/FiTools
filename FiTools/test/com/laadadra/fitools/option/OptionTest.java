@@ -90,28 +90,42 @@ public class OptionTest
   public void putRho()
   {
     Option o = new Put(375, 375, 60. / 365., 0.005, 0.03, 0.2);
-    assertEquals(-0.336, o.rho(), 0.1);
+    assertEquals(-0.336, o.rho(), 0.01);
   }
 
   @Test
   public void callRho()
   {
     Option o = new Call(375, 375, 60. / 365., 0.005, 0.03, 0.2);
-    assertEquals(0.29, o.rho(), 0.1);
+    assertEquals(0.29, o.rho(), 0.01);
   }
 
   @Test
   public void putVega()
   {
     Option o = new Put(375, 375, 60. / 365., 0.005, 0.03, 0.2);
-    assertEquals(0.607, o.vega(), 0.1);
+    assertEquals(0.607, o.vega(), 0.01);
   }
 
   @Test
   public void callVega()
   {
     Option o = new Call(375, 375, 60. / 365., 0.005, 0.03, 0.2);
-    assertEquals(0.607, o.vega(), 0.1);
+    assertEquals(0.607, o.vega(), 0.01);
+  }
+  
+  @Test
+  public void putTheta()
+  {
+    Option o = new Put(375, 375, 60. / 365., 0.005, 0.03, 0.2);
+    assertEquals(-0.098, o.theta(), 0.01);
+  }
+
+  @Test
+  public void callTheta()
+  {
+    Option o = new Call(375, 375, 60. / 365., 0.005, 0.03, 0.2);
+    assertEquals(-0.103, o.theta(), 0.01);
   }
 
   /**

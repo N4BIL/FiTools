@@ -29,6 +29,12 @@ public class Put extends Option
   {
     return -strike * timeToMaturity * Math.exp(-timeToMaturity * riskFreeRate) * Gaussian.Phi(-d2) / 100.;
   }
+
+  @Override
+  public double theta()
+  {
+    return (-Math.exp(-dividendRate * timeToMaturity * (spot * Gaussian.phi(d1) * volatility) / (2 * Math.sqrt(timeToMaturity))) + riskFreeRate * strike * Math.exp(-riskFreeRate * timeToMaturity) * Gaussian.Phi(-d2) - dividendRate * spot * Math.exp(-dividendRate * timeToMaturity) * Gaussian.Phi(-d1)) / 100.;
+  }
   
   
 }
