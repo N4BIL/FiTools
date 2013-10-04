@@ -7,20 +7,21 @@ package com.laadadra.fitools.option;
 public class Put extends Option
 {
 
-  public Put(double spot, double strike, double timeToMaturity, double riskFreeRate, double dividendRate)
+  public Put(double spot, double strike, double timeToMaturity, double riskFreeRate, double dividendRate, double volatility)
   {
-    super(spot, strike, timeToMaturity, riskFreeRate, dividendRate);
+    super(spot, strike, timeToMaturity, riskFreeRate, dividendRate, volatility);
   }
 
   @Override
-  public double calcPrice(double volatility)
+  public double price()
   {
-    if (!checkIntegrity() || volatility <= 0. || volatility >= 1.)
-      return 0;
-    double d1 = (Math.log(spot / strike) + (riskFreeRate + volatility * volatility / 2) * timeToMaturity) / (volatility * Math.sqrt(timeToMaturity));
-    double d2 = d1 - volatility * Math.sqrt(timeToMaturity);
-    
     return strike * Math.exp(-riskFreeRate * timeToMaturity) * Gaussian.Phi(-d2) - spot * Gaussian.Phi(-d1) * Math.exp(-dividendRate * timeToMaturity);
+  }
+
+  @Override
+  public double delta()
+  {
+    return -Math.exp(-riskFreeRate * timeToMaturity) * Gaussian.Phi(-d1);
   }
   
   
