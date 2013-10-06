@@ -36,12 +36,18 @@ public abstract class Option
 
   public abstract double price();
   public abstract double delta();
+  
   public abstract double rho();
   public abstract double theta();
   
   public double vega()
   {
     return RateTool.discount(strike, dividendRate, timeToMaturity) * Gaussian.phi(d1) * Math.sqrt(timeToMaturity) / 100.;
+  }
+  
+  public double gamma()
+  {
+    return Gaussian.phi(d1) * Math.exp(-dividendRate * timeToMaturity) / (spot * volatility * Math.sqrt(timeToMaturity));
   }
   
   private boolean checkIntegrity()

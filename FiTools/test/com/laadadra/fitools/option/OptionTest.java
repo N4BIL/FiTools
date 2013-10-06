@@ -127,6 +127,13 @@ public class OptionTest
     Option o = new Call(375, 375, 60. / 365., 0.005, 0.03, 0.2);
     assertEquals(-0.087, o.theta(), 0.01);
   }
+  
+  @Test
+  public void gamma()
+  {
+    Option o = new Call(375, 375, 60. / 365., 0.005, 0.03, 0.2);
+    assertEquals(0.013, o.gamma(), 0.01);
+  }
 
   /**
    * Test fancy cases.
