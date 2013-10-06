@@ -1,5 +1,7 @@
 package com.laadadra.fitools.option;
 
+import com.laadadra.fitools.rate.RateTool;
+
 /**
  *
  * @author nabil.laadadra
@@ -15,7 +17,7 @@ public class Call extends Option
   @Override
   public double price()
   {
-    return spot * Gaussian.Phi(d1) * Math.exp(-dividendRate * timeToMaturity) - strike * Math.exp(-riskFreeRate * timeToMaturity) * Gaussian.Phi(d2);
+    return Gaussian.Phi(d1) * RateTool.discount(spot, dividendRate, timeToMaturity) - RateTool.discount(strike, riskFreeRate, timeToMaturity) * Gaussian.Phi(d2);
   }
 
   @Override
@@ -27,15 +29,15 @@ public class Call extends Option
   @Override
   public double rho()
   {
-    return strike * timeToMaturity * Math.exp(-timeToMaturity * riskFreeRate) * Gaussian.Phi(d2) / 100.;
+    return timeToMaturity * RateTool.discount(strike, riskFreeRate, timeToMaturity) * Gaussian.Phi(d2) / 100.;
   }
 
   @Override
   public double theta()
   {
-    return (-Math.exp(-dividendRate * timeToMaturity) * spot * Gaussian.phi(d1) * volatility / (2 * Math.sqrt(timeToMaturity))
-            - riskFreeRate * strike * Math.exp(-riskFreeRate * timeToMaturity) * Gaussian.Phi(d2)
-            + dividendRate * spot * Math.exp(-dividendRate * timeToMaturity) * Gaussian.Phi(d1)) / 100.;
+    return (- RateTool.discount(spot, dividendRate, timeToMaturity) * Gaussian.phi(d1) * volatility / (2 * Math.sqrt(timeToMaturity))
+            - riskFreeRate * RateTool.discount(strike, riskFreeRate, timeToMaturity) * Gaussian.Phi(d2)
+            + dividendRate * RateTool.discount(spot, dividendRate, timeToMaturity) * Gaussian.Phi(d1)) / 365.;
   }
 
   

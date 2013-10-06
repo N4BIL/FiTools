@@ -1,5 +1,7 @@
 package com.laadadra.fitools.option;
 
+import com.laadadra.fitools.rate.RateTool;
+
 /**
  *
  * @author nabil.laadadra
@@ -39,7 +41,7 @@ public abstract class Option
   
   public double vega()
   {
-    return strike * Math.exp(-dividendRate * timeToMaturity) * Gaussian.phi(d1) * Math.sqrt(timeToMaturity) / 100.;
+    return RateTool.discount(strike, dividendRate, timeToMaturity) * Gaussian.phi(d1) * Math.sqrt(timeToMaturity) / 100.;
   }
   
   private boolean checkIntegrity()

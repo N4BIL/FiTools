@@ -118,14 +118,14 @@ public class OptionTest
   public void putTheta()
   {
     Option o = new Put(375, 375, 60. / 365., 0.005, 0.03, 0.2);
-    assertEquals(-0.098, o.theta(), 0.01);
+    assertEquals(-0.113, o.theta(), 0.01);
   }
 
   @Test
   public void callTheta()
   {
     Option o = new Call(375, 375, 60. / 365., 0.005, 0.03, 0.2);
-    assertEquals(-0.103, o.theta(), 0.01);
+    assertEquals(-0.087, o.theta(), 0.01);
   }
 
   /**
