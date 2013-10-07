@@ -18,7 +18,9 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
 {
-  com.laadadra.fitools.option.OptionTest.class, com.laadadra.fitools.option.GaussianTest.class
+  com.laadadra.fitools.option.OptionTest.class,
+  com.laadadra.fitools.option.GaussianTest.class,
+  com.laadadra.fitools.option.TimeToLiveTest.class,
 })
 public class OptionTestSuite
 {
