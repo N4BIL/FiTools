@@ -10,7 +10,7 @@ public abstract class Option
 {
   protected double spot;
   protected double strike;
-  protected double timeToMaturity;
+  protected TimeToLive timeToMaturity;
   protected double riskFreeRate;
   protected double dividendRate;
   protected double volatility;
@@ -18,7 +18,12 @@ public abstract class Option
   protected double d1 = -100.;
   protected double d2 = -100.;
 
-  public Option(double spot, double strike, double timeToMaturity, double riskFreeRate, double dividendRate, double volatility)
+  public Option(double spot,
+                double strike,
+                TimeToLive timeToMaturity,
+                double riskFreeRate,
+                double dividendRate,
+                double volatility)
   {
     this.spot = spot;
     this.strike = strike;
@@ -29,8 +34,8 @@ public abstract class Option
     
     if (checkIntegrity())
     {
-      d1 = (Math.log(spot / strike) + (riskFreeRate + volatility * volatility / 2) * timeToMaturity) / (volatility * Math.sqrt(timeToMaturity));
-      d2 = d1 - volatility * Math.sqrt(timeToMaturity);
+      d1 = (Math.log(spot / strike) + (riskFreeRate + volatility * volatility / 2) * timeToMaturity.getDiffDateInYear()) / (volatility * Math.sqrt(timeToMaturity.getDiffDateInYear()));
+      d2 = d1 - volatility * Math.sqrt(timeToMaturity.getDiffDateInYear());
     }
   }
 
@@ -42,12 +47,12 @@ public abstract class Option
   
   public double vega()
   {
-    return RateTool.discount(strike, dividendRate, timeToMaturity) * Gaussian.phi(d1) * Math.sqrt(timeToMaturity) / 100.;
+    return RateTool.discount(strike, dividendRate, timeToMaturity.getDiffDateInYear()) * Gaussian.phi(d1) * Math.sqrt(timeToMaturity.getDiffDateInYear()) / 100.;
   }
   
   public double gamma()
   {
-    return Gaussian.phi(d1) * Math.exp(-dividendRate * timeToMaturity) / (spot * volatility * Math.sqrt(timeToMaturity));
+    return Gaussian.phi(d1) * Math.exp(-dividendRate * timeToMaturity.getDiffDateInYear()) / (spot * volatility * Math.sqrt(timeToMaturity.getDiffDateInYear()));
   }
   
   private boolean checkIntegrity()
@@ -62,7 +67,7 @@ public abstract class Option
       return false;
     if (volatility < 0. || volatility >= 1.)
       return false;
-    if (timeToMaturity <= 0.)
+    if (timeToMaturity == null || timeToMaturity.getDiffDateInYear() <= 0.)
       return false;
     return true;
   }
@@ -87,14 +92,24 @@ public abstract class Option
     this.strike = strike;
   }
 
-  public double getTimeToMaturity()
+  public TimeToLive getTimeToMaturity()
   {
     return timeToMaturity;
   }
 
-  public void setTimeToMaturity(double timeToMaturity)
+  public void setTimeToMaturity(TimeToLive timeToMaturity)
   {
     this.timeToMaturity = timeToMaturity;
+  }
+
+  public double getVolatility()
+  {
+    return volatility;
+  }
+
+  public void setVolatility(double volatility)
+  {
+    this.volatility = volatility;
   }
 
   public double getRiskFreeRate()

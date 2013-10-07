@@ -9,7 +9,7 @@ import com.laadadra.fitools.rate.RateTool;
 public class Call extends Option
 {
 
-  public Call(double spot, double strike, double timeToMaturity, double riskFreeRate, double dividendRate, double volatility)
+  public Call(double spot, double strike, TimeToLive timeToMaturity, double riskFreeRate, double dividendRate, double volatility)
   {
     super(spot, strike, timeToMaturity, riskFreeRate, dividendRate, volatility);
   }
@@ -17,27 +17,27 @@ public class Call extends Option
   @Override
   public double price()
   {
-    return Gaussian.Phi(d1) * RateTool.discount(spot, dividendRate, timeToMaturity) - RateTool.discount(strike, riskFreeRate, timeToMaturity) * Gaussian.Phi(d2);
+    return Gaussian.Phi(d1) * RateTool.discount(spot, dividendRate, timeToMaturity.getDiffDateInYear()) - RateTool.discount(strike, riskFreeRate, timeToMaturity.getDiffDateInYear()) * Gaussian.Phi(d2);
   }
 
   @Override
   public double delta()
   {
-    return Gaussian.Phi(d1) * Math.exp(-dividendRate * timeToMaturity);
+    return Gaussian.Phi(d1) * Math.exp(-dividendRate * timeToMaturity.getDiffDateInYear());
   }
 
   @Override
   public double rho()
   {
-    return timeToMaturity * RateTool.discount(strike, riskFreeRate, timeToMaturity) * Gaussian.Phi(d2) / 100.;
+    return timeToMaturity.getDiffDateInYear() * RateTool.discount(strike, riskFreeRate, timeToMaturity.getDiffDateInYear()) * Gaussian.Phi(d2) / 100.;
   }
 
   @Override
   public double theta()
   {
-    return (- RateTool.discount(spot, dividendRate, timeToMaturity) * Gaussian.phi(d1) * volatility / (2 * Math.sqrt(timeToMaturity))
-            - riskFreeRate * RateTool.discount(strike, riskFreeRate, timeToMaturity) * Gaussian.Phi(d2)
-            + dividendRate * RateTool.discount(spot, dividendRate, timeToMaturity) * Gaussian.Phi(d1)) / 365.;
+    return (- RateTool.discount(spot, dividendRate, timeToMaturity.getDiffDateInYear()) * Gaussian.phi(d1) * volatility / (2 * Math.sqrt(timeToMaturity.getDiffDateInYear()))
+            - riskFreeRate * RateTool.discount(strike, riskFreeRate, timeToMaturity.getDiffDateInYear()) * Gaussian.Phi(d2)
+            + dividendRate * RateTool.discount(spot, dividendRate, timeToMaturity.getDiffDateInYear()) * Gaussian.Phi(d1)) / 365.;
   }
 
   
