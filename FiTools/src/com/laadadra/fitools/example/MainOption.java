@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.laadadra.fitools.example;
 
 import com.laadadra.fitools.option.Call;
-import com.laadadra.fitools.option.Option;
 import com.laadadra.fitools.option.TimeToLive;
 
 /**
