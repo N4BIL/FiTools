@@ -91,5 +91,5 @@ public class SecurityQuoteHistory implements Comparable<SecurityQuoteHistory>
   {
     return -quoteDate.compareTo(o.getQuoteDate());
   }
-
+  
 }
