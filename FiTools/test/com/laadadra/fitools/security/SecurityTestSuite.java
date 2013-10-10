@@ -4,6 +4,8 @@
  */
 package com.laadadra.fitools.security;
 
+import com.laadadra.fitools.option.OptionTestSuite;
+import com.laadadra.fitools.rate.RateTestSuite;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,7 +20,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
 {
-  com.laadadra.fitools.security.YahooLoaderTest.class
+  YahooLoaderTest.class
 })
 public class SecurityTestSuite
 {
