@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.laadadra.fitools.security;
+package com.laadadra.fitools.security.indicator;
 
-import com.laadadra.fitools.security.indicator.IndicatorSuite;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,10 +14,9 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
 {
-  YahooLoaderTest.class,
-  IndicatorSuite.class
+  com.laadadra.fitools.security.indicator.simple.SimpleSuite.class
 })
-public class SecurityTestSuite
+public class IndicatorSuite
 {
 
   @BeforeClass

@@ -6,3 +6,4 @@
 *.ear
 /FiTools/nbproject/private/
 /FiTools/build/
+/FiTools/dist/
