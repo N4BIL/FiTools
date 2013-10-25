@@ -1,5 +1,6 @@
 package com.laadadra.fitools.security;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -91,5 +92,14 @@ public class SecurityQuoteHistory implements Comparable<SecurityQuoteHistory>
   {
     return -quoteDate.compareTo(o.getQuoteDate());
   }
+
+  @Override
+  public String toString()
+  {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    return String.format("[%s][%f|%f] o:%f h:%f l:%f v:%f", sdf.format(quoteDate), close, adjClose, open, high, low, volume);
+  }
+  
+  
   
 }

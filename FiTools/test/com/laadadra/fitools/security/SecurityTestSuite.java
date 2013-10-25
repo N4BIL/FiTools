@@ -4,8 +4,6 @@
  */
 package com.laadadra.fitools.security;
 
-import com.laadadra.fitools.option.OptionTestSuite;
-import com.laadadra.fitools.rate.RateTestSuite;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

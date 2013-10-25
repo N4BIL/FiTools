@@ -1,15 +1,10 @@
 package com.laadadra.fitools.security;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import javax.naming.spi.DirectoryManager;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -50,18 +45,16 @@ public class YahooLoaderTest
 
   /**
    * Test of loadFromCSV method, of class YahooLoader.
+   * @throws java.io.FileNotFoundException
    */
   @Test
-  public void testLoadFromCSV() throws FileNotFoundException, IOException
+  public void testLoadFromCSV() throws FileNotFoundException
   {
     FileInputStream fis = new FileInputStream("data/AF");
     YahooLoader yl = new YahooLoader();
     List<SecurityQuoteHistory> sqhList = yl.loadFromCSV(fis);
     assertEquals(3540, sqhList.size());
    
-    
-    
-
     Calendar cal = Calendar.getInstance();
     cal.set(2013, Calendar.AUGUST, 9, 0, 0, 0);
     cal.set(Calendar.MILLISECOND, 0);
@@ -74,5 +67,22 @@ public class YahooLoaderTest
     assertEquals(6.43, sqh.getOpen(), 0.001);
     assertEquals(4648100., sqh.getVolume(), 0.001);
     assertEquals(cal.getTime(), sqh.getQuoteDate());
+  }
+  
+  @Test
+  public void testLoadFromYahoo()
+  {
+    Date startDate;
+    Date endDate;
+    Calendar cal = Calendar.getInstance();
+    cal.set(2004, Calendar.APRIL, 1);
+    startDate = cal.getTime();
+    cal.set(2012, Calendar.DECEMBER, 19);
+    endDate = cal.getTime();
+    
+    YahooLoader yl = new YahooLoader();
+    List<SecurityQuoteHistory> quoteList = yl.loadFromYahoo("AF.PA", null, startDate, endDate);
+    SecurityQuoteHistory sqh = quoteList.get(0);
+    assertEquals(7.211, sqh.getClose(), 0.01);
   }
 }
