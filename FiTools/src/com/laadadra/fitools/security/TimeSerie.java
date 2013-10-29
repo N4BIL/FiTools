@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -12,26 +13,30 @@ import java.util.TreeMap;
  */
 public class TimeSerie extends TreeMap<Date, Double>
 {
-
-  public TimeSerie()
-  {
-    super(new Comparator<Date>() {
+  private static Comparator<Date> reverseDateComparator = new Comparator<Date>() {
 
     @Override
     public int compare(Date o1, Date o2)
     {
       return -o1.compareTo(o2);
     }
-  });
+  };
+  
+  public TimeSerie()
+  {
+    super(reverseDateComparator);
   }
 
   public TimeSerie(TimeSerie timeSerie, Integer period)
   {
-    super();
-    List<Date> dateList = new ArrayList<>(timeSerie.keySet());
-    List<Double> valueList = new ArrayList<>(timeSerie.values());
-    for (int i = 0; i < period; i++)
-      put(dateList.get(i), valueList.get(i));
+    super(reverseDateComparator);
+    for (Map.Entry<Date, Double> entry : timeSerie.entrySet())
+    {
+      if (period == 0)
+        break;
+      put(entry.getKey(), entry.getValue());
+      period--;
+    }
   }
   
   
