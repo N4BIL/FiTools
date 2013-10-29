@@ -16,7 +16,7 @@ public class VolatilityTest extends SimpleIndicateurTest
   public void testVolatility()
   {
     Volatility instance = new Volatility();
-    assertEquals(0.43029751, instance.calc(sqhList)[0], 0.0001);
+    assertEquals(0.43029751, instance.calc(timeSerie)[0], 0.0001);
   }
   
 }

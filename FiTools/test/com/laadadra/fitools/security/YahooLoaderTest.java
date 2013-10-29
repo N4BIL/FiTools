@@ -1,5 +1,7 @@
 package com.laadadra.fitools.security;
 
+import com.laadadra.fitools.yahoo.YahooLoader;
+import com.laadadra.fitools.yahoo.YahooQuoteHistory;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Calendar;
@@ -52,14 +54,14 @@ public class YahooLoaderTest
   {
     FileInputStream fis = new FileInputStream("data/AF");
     YahooLoader yl = new YahooLoader();
-    List<SecurityQuoteHistory> sqhList = yl.loadFromCSV(fis);
+    List<YahooQuoteHistory> sqhList = yl.loadFromCSV(fis);
     assertEquals(3540, sqhList.size());
    
     Calendar cal = Calendar.getInstance();
     cal.set(2013, Calendar.AUGUST, 9, 0, 0, 0);
     cal.set(Calendar.MILLISECOND, 0);
     
-    SecurityQuoteHistory sqh = sqhList.get(0);
+    YahooQuoteHistory sqh = sqhList.get(0);
     assertEquals(6.61, sqh.getClose(), 0.001);
     assertEquals(6.61, sqh.getAdjClose(), 0.001);
     assertEquals(6.62, sqh.getHigh(), 0.001);
@@ -81,8 +83,8 @@ public class YahooLoaderTest
     endDate = cal.getTime();
     
     YahooLoader yl = new YahooLoader();
-    List<SecurityQuoteHistory> quoteList = yl.loadFromYahoo("AF.PA", null, startDate, endDate);
-    SecurityQuoteHistory sqh = quoteList.get(0);
+    List<YahooQuoteHistory> quoteList = yl.loadFromYahoo("AF.PA", null, startDate, endDate);
+    YahooQuoteHistory sqh = quoteList.get(0);
     assertEquals(7.211, sqh.getClose(), 0.01);
   }
 }

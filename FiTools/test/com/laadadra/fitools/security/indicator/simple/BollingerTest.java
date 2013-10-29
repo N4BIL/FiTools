@@ -17,7 +17,7 @@ public class BollingerTest extends SimpleIndicateurTest
   public void testBollinger()
   {
     Bollinger instance = new Bollinger();
-    Double res[] = instance.calc(sqhList);
+    Double res[] = instance.calc(timeSerie);
     
     Double moy = 14.74492;
     Double delta = 7.092526;

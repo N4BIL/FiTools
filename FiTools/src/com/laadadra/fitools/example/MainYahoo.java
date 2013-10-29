@@ -1,8 +1,8 @@
 package com.laadadra.fitools.example;
 
 import com.laadadra.fitools.option.Gaussian;
-import com.laadadra.fitools.security.SecurityQuoteHistory;
-import com.laadadra.fitools.security.YahooLoader;
+import com.laadadra.fitools.yahoo.YahooQuoteHistory;
+import com.laadadra.fitools.yahoo.YahooLoader;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.Calendar;
@@ -28,9 +28,9 @@ public class MainYahoo
     endDate = cal.getTime();
     
     YahooLoader yl = new YahooLoader();
-    List<SecurityQuoteHistory> quoteList = yl.loadFromYahoo("AF.PA", null, startDate, endDate);
+    List<YahooQuoteHistory> quoteList = yl.loadFromYahoo("AF.PA", null, startDate, endDate);
     
-    for (SecurityQuoteHistory sqh : quoteList)
+    for (YahooQuoteHistory sqh : quoteList)
       System.err.println(sqh);
   }
 }

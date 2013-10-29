@@ -1,5 +1,6 @@
-package com.laadadra.fitools.security;
+package com.laadadra.fitools.yahoo;
 
+import com.laadadra.fitools.yahoo.YahooQuoteHistory;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,10 +33,10 @@ public class YahooLoader
    * @param is CSV file to load
    * @return List of security quote history ordered by date DESC
    */
-  public List<SecurityQuoteHistory> loadFromCSV(InputStream is)
+  public List<YahooQuoteHistory> loadFromCSV(InputStream is)
   {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    List<SecurityQuoteHistory> res = new ArrayList<>();
+    List<YahooQuoteHistory> res = new ArrayList<>();
     try (BufferedReader br = new BufferedReader(new InputStreamReader(is)))
     {
       br.readLine();
@@ -43,7 +44,7 @@ public class YahooLoader
       while ((line = br.readLine()) != null)
       {
         String tab[] = line.split(",");
-        SecurityQuoteHistory sqd = new SecurityQuoteHistory();
+        YahooQuoteHistory sqd = new YahooQuoteHistory();
         sqd.setQuoteDate(sdf.parse(tab[0]));
         sqd.setOpen(Double.parseDouble(tab[1]));
         sqd.setHigh(Double.parseDouble(tab[2]));
@@ -68,7 +69,7 @@ public class YahooLoader
    * @param filepath
    * @return
    */
-  public List<SecurityQuoteHistory> loadFromCSV(String filepath)
+  public List<YahooQuoteHistory> loadFromCSV(String filepath)
   {
     try (InputStream fis = new FileInputStream(filepath))
     {
@@ -88,7 +89,7 @@ public class YahooLoader
    * @param endDate End date of the serie
    * @return
    */
-  public List<SecurityQuoteHistory> loadFromYahoo(String symbol, Proxy proxy, Date startDate, Date endDate)
+  public List<YahooQuoteHistory> loadFromYahoo(String symbol, Proxy proxy, Date startDate, Date endDate)
   {
     if (symbol == null || startDate == null || endDate == null)
       return null;
@@ -108,7 +109,7 @@ public class YahooLoader
     {
       URL url = new URL(urlAddress);
       URLConnection urlConnection = proxy == null ? url.openConnection() : url.openConnection(proxy);
-      List<SecurityQuoteHistory> res;
+      List<YahooQuoteHistory> res;
       try (InputStream is = urlConnection.getInputStream())
       {
         res = loadFromCSV(is);

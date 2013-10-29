@@ -18,7 +18,7 @@ public class MinTest extends SimpleIndicateurTest
   public void testMin()
   {
     Min instance = new Min();
-    assertEquals(3.06, instance.calc(sqhList)[0], 0.001);
+    assertEquals(3.06, instance.calc(timeSerie)[0], 0.001);
   }
   
 }

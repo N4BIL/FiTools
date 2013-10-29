@@ -18,7 +18,7 @@ public class AveragePerformanceTest extends SimpleIndicateurTest
   public void testAveragePerformance()
   {
     AveragePerformance instance = new AveragePerformance();
-    assertEquals(0.0000622408, instance.calc(sqhList)[0], 0.0000000001);
+    assertEquals(0.0000622408, instance.calc(timeSerie)[0], 0.0000000001);
   }
   
 }

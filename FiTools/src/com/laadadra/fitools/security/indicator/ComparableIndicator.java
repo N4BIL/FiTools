@@ -1,6 +1,6 @@
 package com.laadadra.fitools.security.indicator;
 
-import com.laadadra.fitools.security.SecurityQuoteHistory;
+import com.laadadra.fitools.yahoo.YahooQuoteHistory;
 import java.util.List;
 
 /**
@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface ComparableIndicator
 {
-  public Double calc(List<SecurityQuoteHistory> referenceSerie, List<SecurityQuoteHistory> compareSerie);
+  public Double calc(List<YahooQuoteHistory> referenceSerie, List<YahooQuoteHistory> compareSerie);
 }

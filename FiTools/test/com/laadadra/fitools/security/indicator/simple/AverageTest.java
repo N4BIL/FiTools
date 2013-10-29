@@ -17,7 +17,7 @@ public class AverageTest extends SimpleIndicateurTest
   public void testAverage()
   {
     Average instance = new Average();
-    assertEquals(14.7449, instance.calc(sqhList)[0], 0.0001);
+    assertEquals(14.7449, instance.calc(timeSerie)[0], 0.0001);
   }
   
 }

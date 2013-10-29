@@ -17,7 +17,7 @@ public class MaxTest extends SimpleIndicateurTest
   public void testMax()
   {
     Max instance = new Max();
-    assertEquals(38.3, instance.calc(sqhList)[0], 0.001);
+    assertEquals(38.3, instance.calc(timeSerie)[0], 0.001);
   }
   
 }

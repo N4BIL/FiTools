@@ -1,7 +1,9 @@
 package com.laadadra.fitools.security.indicator.simple;
 
-import com.laadadra.fitools.security.SecurityQuoteHistory;
+import com.laadadra.fitools.yahoo.YahooQuoteHistory;
+import com.laadadra.fitools.security.TimeSerie;
 import com.laadadra.fitools.security.indicator.SimpleIndicator;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,14 +11,14 @@ public class MaxDrowDown extends SimpleIndicator
 {
 
   @Override
-  public Double[] calc(List<SecurityQuoteHistory> serie)
+  public Double[] calc(TimeSerie serie)
   {
-    Collections.sort(serie);
+    List<Double> valueList = new ArrayList<>(serie.values());
     Double res = 0.;
-    for (int i = serie.size() - 1; i > 0; i--)
+    for (int i = valueList.size() - 1; i > 0; i--)
       for (int j = i - 1; j >= 0; j--)
       {
-        Double drowDown = serie.get(j).getClose() / serie.get(i).getClose() - 1;
+        Double drowDown = valueList.get(j)/ valueList.get(i) - 1;
         if (drowDown < res)
           res = drowDown;
       }

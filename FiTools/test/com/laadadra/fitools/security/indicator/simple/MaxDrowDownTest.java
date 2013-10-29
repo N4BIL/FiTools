@@ -16,7 +16,7 @@ public class MaxDrowDownTest extends SimpleIndicateurTest
   public void testMaxDrowDown()
   {
     MaxDrowDown instance = new MaxDrowDown();
-    assertEquals(3.06 / 38.3 - 1, instance.calc(sqhList)[0], 0.00001);
+    assertEquals(3.06 / 38.3 - 1, instance.calc(timeSerie)[0], 0.00001);
   }
   
 }

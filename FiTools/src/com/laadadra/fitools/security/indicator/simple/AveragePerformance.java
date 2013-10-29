@@ -1,7 +1,9 @@
 package com.laadadra.fitools.security.indicator.simple;
 
-import com.laadadra.fitools.security.SecurityQuoteHistory;
+import com.laadadra.fitools.yahoo.YahooQuoteHistory;
+import com.laadadra.fitools.security.TimeSerie;
 import com.laadadra.fitools.security.indicator.SimpleIndicator;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,13 +11,13 @@ public class AveragePerformance extends SimpleIndicator
 {
 
   @Override
-  public Double[] calc(List<SecurityQuoteHistory> serie)
+  public Double[] calc(TimeSerie serie)
   {
-    Collections.sort(serie);
-    
     Double res = 0.;
-    for (int i = 0; i < serie.size() - 1; i++)
-      res += serie.get(i).getClose() / serie.get(i + 1).getClose() - 1;
+    List<Double> valueList = new ArrayList<>(serie.values());
+   
+    for (int i = 0; i < valueList.size() - 1; i++)
+      res += valueList.get(i) / valueList.get(i + 1) - 1;
     Double tab[] = new Double[1];
     tab[0] = res / (serie.size() - 1);
     return tab;

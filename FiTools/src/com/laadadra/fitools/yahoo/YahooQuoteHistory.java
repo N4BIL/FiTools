@@ -1,4 +1,4 @@
-package com.laadadra.fitools.security;
+package com.laadadra.fitools.yahoo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +7,7 @@ import java.util.Date;
  *
  * @author nabil.laadadra
  */
-public class SecurityQuoteHistory implements Comparable<SecurityQuoteHistory>
+public class YahooQuoteHistory implements Comparable<YahooQuoteHistory>
 {
   private Date quoteDate;
   private Double open;
@@ -88,7 +88,7 @@ public class SecurityQuoteHistory implements Comparable<SecurityQuoteHistory>
   }
 
   @Override
-  public int compareTo(SecurityQuoteHistory o)
+  public int compareTo(YahooQuoteHistory o)
   {
     return -quoteDate.compareTo(o.getQuoteDate());
   }

@@ -1,13 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.laadadra.fitools.security.indicator.simple;
 
-import com.laadadra.fitools.security.SecurityQuoteHistory;
-import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -26,7 +18,7 @@ public class RSITest extends SimpleIndicateurTest
   public void testRSI()
   {
     RSI instance = new RSI();
-    assertEquals(49.297997, instance.calc(sqhList)[0], 0.000001);
+    assertEquals(49.297997, instance.calc(timeSerie)[0], 0.000001);
   }
 
   

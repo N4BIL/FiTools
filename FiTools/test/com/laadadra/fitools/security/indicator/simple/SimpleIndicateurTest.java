@@ -6,8 +6,9 @@
 
 package com.laadadra.fitools.security.indicator.simple;
 
-import com.laadadra.fitools.security.SecurityQuoteHistory;
-import com.laadadra.fitools.security.YahooLoader;
+import com.laadadra.fitools.yahoo.YahooQuoteHistory;
+import com.laadadra.fitools.security.TimeSerie;
+import com.laadadra.fitools.yahoo.YahooLoader;
 import java.util.List;
 import org.junit.Before;
 
@@ -17,12 +18,14 @@ import org.junit.Before;
  */
 public class SimpleIndicateurTest
 {
-  protected List<SecurityQuoteHistory> sqhList;
+  protected TimeSerie timeSerie = new TimeSerie();
   
   @Before
   public void setUp() throws Exception
   {
     YahooLoader yl = new YahooLoader();
-    sqhList = yl.loadFromCSV("data/AF");
+    List<YahooQuoteHistory> sqhList = yl.loadFromCSV("data/AF");
+    for (YahooQuoteHistory sqh : sqhList)
+      timeSerie.put(sqh.getQuoteDate(), sqh.getClose());
   }
 }
