@@ -1,5 +1,6 @@
 package com.laadadra.fitools.security;
 
+import com.laadadra.fitools.option.TimeToLive;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -38,8 +39,6 @@ public class TimeSerie extends TreeMap<Date, Double>
       period--;
     }
   }
-  
-  
 
 }
 

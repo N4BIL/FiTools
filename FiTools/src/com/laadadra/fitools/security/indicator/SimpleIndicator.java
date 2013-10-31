@@ -1,5 +1,6 @@
 package com.laadadra.fitools.security.indicator;
 
+import com.laadadra.fitools.option.TimeToLive;
 import com.laadadra.fitools.security.TimeSerie;
 
 public abstract class SimpleIndicator
@@ -14,4 +15,5 @@ public abstract class SimpleIndicator
     
     return calc(subTimeSerie);
   }
+
 }
