@@ -1,7 +1,7 @@
-package com.laadadra.fitools.security;
+package com.laadadra.fitools.security.data.yahoo;
 
-import com.laadadra.fitools.yahoo.YahooLoader;
-import com.laadadra.fitools.yahoo.YahooQuoteHistory;
+import com.laadadra.fitools.security.data.yahoo.YahooLoader;
+import com.laadadra.fitools.security.data.yahoo.YahooQuoteHistory;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Calendar;

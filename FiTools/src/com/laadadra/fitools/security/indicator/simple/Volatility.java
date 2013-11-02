@@ -1,6 +1,6 @@
 package com.laadadra.fitools.security.indicator.simple;
 
-import com.laadadra.fitools.yahoo.YahooQuoteHistory;
+import com.laadadra.fitools.security.data.yahoo.YahooQuoteHistory;
 import com.laadadra.fitools.security.TimeSerie;
 import com.laadadra.fitools.security.indicator.SimpleIndicator;
 import java.util.ArrayList;

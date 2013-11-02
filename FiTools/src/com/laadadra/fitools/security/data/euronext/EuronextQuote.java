@@ -1,4 +1,4 @@
-package com.laadadra.fitools.yahoo;
+package com.laadadra.fitools.security.data.euronext;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,24 +7,69 @@ import java.util.Date;
  *
  * @author nabil.laadadra
  */
-public class YahooQuoteHistory implements Comparable<YahooQuoteHistory>
+public class EuronextQuote implements Comparable<EuronextQuote>
 {
-  private Date quoteDate;
+  private String name;
+  private String isin;
+  private String symbol;
+  private String market;
+  private String currency;
   private Double open;
   private Double close;
-  private Double adjClose;
   private Double low;
   private Double high;
-  private Double volume;
+  private Double volumeInQuantity;
+  private Double volumeInCurrency;
+  private Date lastTradeDate;
 
-  public Date getQuoteDate()
+  public String getName()
   {
-    return quoteDate;
+    return name;
   }
 
-  public void setQuoteDate(Date quoteDate)
+  public void setName(String name)
   {
-    this.quoteDate = quoteDate;
+    this.name = name;
+  }
+
+  public String getIsin()
+  {
+    return isin;
+  }
+
+  public void setIsin(String isin)
+  {
+    this.isin = isin;
+  }
+
+  public String getSymbol()
+  {
+    return symbol;
+  }
+
+  public void setSymbol(String symbol)
+  {
+    this.symbol = symbol;
+  }
+
+  public String getMarket()
+  {
+    return market;
+  }
+
+  public void setMarket(String market)
+  {
+    this.market = market;
+  }
+
+  public String getCurrency()
+  {
+    return currency;
+  }
+
+  public void setCurrency(String currency)
+  {
+    this.currency = currency;
   }
 
   public Double getOpen()
@@ -67,37 +112,49 @@ public class YahooQuoteHistory implements Comparable<YahooQuoteHistory>
     this.high = high;
   }
 
-  public Double getVolume()
+  public Double getVolumeInQuantity()
   {
-    return volume;
+    return volumeInQuantity;
   }
 
-  public void setVolume(Double volume)
+  public void setVolumeInQuantity(Double volumeInQuantity)
   {
-    this.volume = volume;
+    this.volumeInQuantity = volumeInQuantity;
   }
 
-  public Double getAdjClose()
+  public Double getVolumeInCurrency()
   {
-    return adjClose;
+    return volumeInCurrency;
   }
 
-  public void setAdjClose(Double adjClose)
+  public void setVolumeInCurrency(Double volumeInCurrency)
   {
-    this.adjClose = adjClose;
+    this.volumeInCurrency = volumeInCurrency;
   }
 
-  @Override
-  public int compareTo(YahooQuoteHistory o)
+  public Date getLastTradeDate()
   {
-    return -quoteDate.compareTo(o.getQuoteDate());
+    return lastTradeDate;
   }
 
+  public void setLastTradeDate(Date lastTradeDate)
+  {
+    this.lastTradeDate = lastTradeDate;
+  }
+
+ 
+  
   @Override
   public String toString()
   {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    return String.format("[%s][%f|%f] o:%f h:%f l:%f v:%f", sdf.format(quoteDate), close, adjClose, open, high, low, volume);
+    return String.format("[%s][%f] o:%f h:%f l:%f v:%f", sdf.format(lastTradeDate), close, open, high, low, volumeInQuantity);
+  }
+
+  @Override
+  public int compareTo(EuronextQuote t)
+  {
+    return -lastTradeDate.compareTo(t.getLastTradeDate());
   }
   
   

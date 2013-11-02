@@ -1,12 +1,13 @@
-package com.laadadra.fitools.yahoo;
+package com.laadadra.fitools.security.data.euronext;
 
-import com.laadadra.fitools.yahoo.YahooQuoteHistory;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
@@ -14,8 +15,6 @@ import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,42 +23,51 @@ import java.util.logging.Logger;
  *
  * @author nabil.laadadra
  */
-public class YahooLoader
+public class EuronextLoader
 {
 
   /**
-   * Load a CSV file with the Yahoo's format
+   * Load a CSV file with the Euronext format
    *
    * @param is CSV file to load
-   * @return List of security quote history ordered by date DESC
+   * @return List of security quote ordered by date DESC
    */
-  public List<YahooQuoteHistory> loadFromCSV(InputStream is)
+  public List<EuronextQuote> loadFromCSV(InputStream is)
   {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    List<YahooQuoteHistory> res = new ArrayList<>();
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+    List<EuronextQuote> res = new ArrayList<>();
     try (BufferedReader br = new BufferedReader(new InputStreamReader(is)))
     {
+      br.readLine();
+      br.readLine();
+      br.readLine();
       br.readLine();
       String line;
       while ((line = br.readLine()) != null)
       {
-        String tab[] = line.split(",");
-        YahooQuoteHistory sqd = new YahooQuoteHistory();
-        sqd.setQuoteDate(sdf.parse(tab[0]));
-        sqd.setOpen(Double.parseDouble(tab[1]));
-        sqd.setHigh(Double.parseDouble(tab[2]));
-        sqd.setLow(Double.parseDouble(tab[3]));
-        sqd.setClose(Double.parseDouble(tab[4]));
-        sqd.setVolume(Double.parseDouble(tab[5]));
-        sqd.setAdjClose(Double.parseDouble(tab[6]));
-        res.add(sqd);
+        line = line.replace("\"", "");
+        String tab[] = line.split(";");
+        EuronextQuote eq = new EuronextQuote();
+        eq.setName(tab[0]);
+        eq.setIsin(tab[1]);
+        eq.setSymbol(tab[2]);
+        eq.setMarket(tab[3]);
+        eq.setCurrency(tab[4]);
+        eq.setOpen(tab[5].equals("-") ? null : Double.parseDouble(tab[5].replace(",", ".")));
+        eq.setHigh(tab[6].equals("-") ? null : Double.parseDouble(tab[6].replace(",", ".")));
+        eq.setLow(tab[7].equals("-") ? null : Double.parseDouble(tab[7].replace(",", ".")));
+        eq.setClose(tab[8].equals("-") ? null : Double.parseDouble(tab[8].replace(",", ".")));
+        eq.setLastTradeDate(tab[9].equals("-") ? null : sdf.parse(tab[9].replace(",", ".")));
+        eq.setVolumeInQuantity(tab[11].equals("-") ? null : Double.parseDouble(tab[11].replace(",", ".")));
+        eq.setVolumeInCurrency(tab[12].equals("-") ? null : Double.parseDouble(tab[12].replace(",", ".")));
+        res.add(eq);
       }
     } catch (FileNotFoundException ex)
     {
-      Logger.getLogger(YahooLoader.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EuronextLoader.class.getName()).log(Level.SEVERE, null, ex);
     } catch (IOException | ParseException ex)
     {
-      Logger.getLogger(YahooLoader.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EuronextLoader.class.getName()).log(Level.SEVERE, null, ex);
     }
     return res;
   }
@@ -69,47 +77,39 @@ public class YahooLoader
    * @param filepath
    * @return
    */
-  public List<YahooQuoteHistory> loadFromCSV(String filepath)
+  public List<EuronextQuote> loadFromCSV(String filepath)
   {
     try (InputStream fis = new FileInputStream(filepath))
     {
       return loadFromCSV(fis);
     } catch (IOException ex)
     {
-      Logger.getLogger(YahooLoader.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EuronextLoader.class.getName()).log(Level.SEVERE, null, ex);
     }
     return null;
   }
   
-  /**
-   * Load hstorical price from Yahoo website
-   * @param symbol Symbol of the security ex: GOOG from Google
-   * @param proxy Set the proxy for the connexion, it can be null
-   * @param startDate Start date of the serie
-   * @param endDate End date of the serie
-   * @return
-   */
-  public List<YahooQuoteHistory> loadFromYahoo(String symbol, Proxy proxy, Date startDate, Date endDate)
+  public List<EuronextQuote> loadFromEuronext(Proxy proxy)
   {
-    if (symbol == null || startDate == null || endDate == null)
-      return null;
-    Calendar calStart = Calendar.getInstance();
-    calStart.setTime(startDate);
-    Calendar calEnd = Calendar.getInstance();
-    calEnd.setTime(endDate);
-    String urlAddress = String.format("http://ichart.yahoo.com/table.csv?s=%s&a=%d&b=%d&c=%d&d=%d&e=%d&f=%d&g=d&ignore=.csv",
-                                      symbol,
-                                      calStart.get(Calendar.MONTH),
-                                      calStart.get(Calendar.DAY_OF_MONTH),
-                                      calStart.get(Calendar.YEAR),
-                                      calEnd.get(Calendar.MONTH),
-                                      calEnd.get(Calendar.DAY_OF_MONTH),
-                                      calEnd.get(Calendar.YEAR));
+    String urlAddress = "https://europeanequities.nyx.com/fr/popup/data/download?ml=nyx_pd_stocks&cmd=default&formKey=nyx_pd_filter_values%3Aa4eb918a59a5b507707ea20eb38f530f";
     try
     {
       URL url = new URL(urlAddress);
-      URLConnection urlConnection = proxy == null ? url.openConnection() : url.openConnection(proxy);
-      List<YahooQuoteHistory> res;
+      HttpURLConnection urlConnection = (HttpURLConnection)(proxy == null ? url.openConnection() : url.openConnection(proxy));
+      
+      String data = "format=2&layout=2&decimal_separator=2&date_format=1&op=Go&form_build_id=form-9d6008bda607fc90d43afcef704b89e8&form_id=nyx_download_form";
+      
+      urlConnection.setDoInput(true);
+      urlConnection.setDoOutput(true);
+      urlConnection.setRequestMethod("POST");
+      urlConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+      
+      DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream ());
+      wr.writeBytes(data);
+      wr.flush();
+      wr.close();
+      
+      List<EuronextQuote> res;
       try (InputStream is = urlConnection.getInputStream())
       {
         res = loadFromCSV(is);
@@ -117,10 +117,10 @@ public class YahooLoader
       return res;
     } catch (MalformedURLException ex)
     {
-      Logger.getLogger(YahooLoader.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EuronextLoader.class.getName()).log(Level.SEVERE, null, ex);
     } catch (IOException ex)
     {
-      Logger.getLogger(YahooLoader.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(EuronextLoader.class.getName()).log(Level.SEVERE, null, ex);
     }
     return null;
   }

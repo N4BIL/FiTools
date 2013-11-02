@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.laadadra.fitools;
+package com.laadadra.fitools.security.data;
 
-import com.laadadra.fitools.option.OptionTestSuite;
-import com.laadadra.fitools.rate.RateTestSuite;
-import com.laadadra.fitools.security.SecurityTestSuite;
+import com.laadadra.fitools.security.data.euronext.EuronextLoaderTest;
+import com.laadadra.fitools.security.data.yahoo.YahooLoaderTest;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,11 +16,10 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
 {
-  OptionTestSuite.class,
-  SecurityTestSuite.class,
-  RateTestSuite.class
+          YahooLoaderTest.class,
+          EuronextLoaderTest.class
 })
-public class TestSuite
+public class DataTestSuite
 {
 
   @BeforeClass

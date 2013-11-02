@@ -1,8 +1,8 @@
 package com.laadadra.fitools.example;
 
 import com.laadadra.fitools.option.Gaussian;
-import com.laadadra.fitools.yahoo.YahooQuoteHistory;
-import com.laadadra.fitools.yahoo.YahooLoader;
+import com.laadadra.fitools.security.data.yahoo.YahooQuoteHistory;
+import com.laadadra.fitools.security.data.yahoo.YahooLoader;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.Calendar;

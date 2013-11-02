@@ -1,6 +1,6 @@
-package com.laadadra.fitools.yahoo;
+package com.laadadra.fitools.security.data.yahoo;
 
-import com.laadadra.fitools.yahoo.YahooQuoteHistory;
+import com.laadadra.fitools.security.data.yahoo.YahooQuoteHistory;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

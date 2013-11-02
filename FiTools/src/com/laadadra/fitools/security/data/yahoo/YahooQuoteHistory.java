@@ -1,4 +1,4 @@
-package com.laadadra.fitools.yahoo;
+package com.laadadra.fitools.security.data.yahoo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

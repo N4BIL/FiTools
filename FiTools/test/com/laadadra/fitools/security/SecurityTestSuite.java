@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.laadadra.fitools.security;
 
+import com.laadadra.fitools.security.data.DataTestSuite;
 import com.laadadra.fitools.security.indicator.IndicatorSuite;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,8 +16,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
 {
-  YahooLoaderTest.class,
-  IndicatorSuite.class
+  IndicatorSuite.class,
+  DataTestSuite.class
 })
 public class SecurityTestSuite
 {
