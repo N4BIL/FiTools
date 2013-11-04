@@ -148,7 +148,7 @@ public class EuronextQuote implements Comparable<EuronextQuote>
   public String toString()
   {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    return String.format("[%s][%f] o:%f h:%f l:%f v:%f", sdf.format(lastTradeDate), close, open, high, low, volumeInQuantity);
+    return String.format("%s: [%s][%f] o:%f h:%f l:%f v:%f", name, lastTradeDate == null ? null : sdf.format(lastTradeDate), close, open, high, low, volumeInQuantity);
   }
 
   @Override
