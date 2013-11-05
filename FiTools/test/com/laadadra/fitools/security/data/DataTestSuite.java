@@ -1,6 +1,7 @@
 package com.laadadra.fitools.security.data;
 
 import com.laadadra.fitools.security.data.euronext.EuronextLoaderTest;
+import com.laadadra.fitools.security.data.nasdaq.NasdaqLoaderTest;
 import com.laadadra.fitools.security.data.yahoo.YahooLoaderTest;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,7 +18,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
 {
           YahooLoaderTest.class,
-          EuronextLoaderTest.class
+          EuronextLoaderTest.class,
+          NasdaqLoaderTest.class
 })
 public class DataTestSuite
 {
