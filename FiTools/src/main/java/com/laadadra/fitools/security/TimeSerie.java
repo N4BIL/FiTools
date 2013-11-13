@@ -1,10 +1,7 @@
 package com.laadadra.fitools.security;
 
-import com.laadadra.fitools.option.TimeToLive;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,15 +11,16 @@ import java.util.TreeMap;
  */
 public class TimeSerie extends TreeMap<Date, Double>
 {
-  private static Comparator<Date> reverseDateComparator = new Comparator<Date>() {
 
+  private static Comparator<Date> reverseDateComparator = new Comparator<Date>()
+  {
     @Override
     public int compare(Date o1, Date o2)
     {
       return -o1.compareTo(o2);
     }
   };
-  
+
   public TimeSerie()
   {
     super(reverseDateComparator);
@@ -39,6 +37,4 @@ public class TimeSerie extends TreeMap<Date, Double>
       period--;
     }
   }
-
 }
-
