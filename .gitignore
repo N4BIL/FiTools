@@ -7,4 +7,5 @@
 /FiTools/nbproject/private/
 /FiTools/build/
 /FiTools/dist/
-/FiTools/nbproject/
+/FiTools/target/
+/FiTools/nb-configuration.xml
