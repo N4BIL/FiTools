@@ -5,6 +5,8 @@ import com.laadadra.fitools.security.data.euronext.EuronextLoader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.Calendar;
 import java.util.List;
 import org.junit.After;
@@ -80,8 +82,8 @@ public class EuronextLoaderTest
   public void testLoadFromEuronext()
   {
     EuronextLoader el = new EuronextLoader();
-    List<EuronextQuote> eurList = el.loadFromEuronext(null);
-    assertEquals(2443, eurList.size());
+    List<EuronextQuote> eurList = el.loadFromEuronext(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.ossiam.local", 3128)));
+    assertTrue(eurList.size() > 100);
     System.err.println(eurList.get(0));
   }
 

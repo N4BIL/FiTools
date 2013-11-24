@@ -4,6 +4,8 @@ import com.laadadra.fitools.security.data.yahoo.YahooLoader;
 import com.laadadra.fitools.security.data.yahoo.YahooQuoteHistory;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -83,7 +85,7 @@ public class YahooLoaderTest
     endDate = cal.getTime();
     
     YahooLoader yl = new YahooLoader();
-    List<YahooQuoteHistory> quoteList = yl.loadFromYahoo("AF.PA", null, startDate, endDate);
+    List<YahooQuoteHistory> quoteList = yl.loadFromYahoo("AF.PA", new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.ossiam.local", 3128)), startDate, endDate);
     YahooQuoteHistory sqh = quoteList.get(0);
     assertEquals(7.211, sqh.getClose(), 0.01);
   }

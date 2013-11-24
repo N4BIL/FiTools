@@ -70,7 +70,7 @@ public class NasdaqLoaderTest
   public void testLoadFromNasdaq()
   {
     NasdaqLoader nl = new NasdaqLoader();
-    List<NasdaqQuote> nasList = nl.loadFromNasdaq(NasdaqLoader.NasdaqExchange.AMEX, null);
+    List<NasdaqQuote> nasList = nl.loadFromNasdaq(NasdaqLoader.NasdaqExchange.AMEX, new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.ossiam.local", 3128)));
     assertEquals(true, nasList.size() > 100);
   }
 
